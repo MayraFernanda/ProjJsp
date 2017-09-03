@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body class="body">
+
+		<div class="header">
+  			<div id="header-sroll"> 
+  				<h1> 
+  					<div class="headerContent">
+  						<input type="text" name="pesquisa"> 
+  						<a href=""> ir </a>
+  						
+  						Livros Malignos
+
+  						<a href="login.jsp"> Logar </a>
+  					</div>
+  					
+  				</h1>
+  			</div>
+		</div>
+		
+
+		<div name="cabecalho">
+		</div>
+
+		<div name="backgroud" class="content">
+			<div name="listaLivros">
+				
+			</div>
+		</div>
+
+
+	<footer class="footer">
+		this is a footer
+	</footer>
+
+	<script type="text/javascript">
+			$(window).scroll(function () {
+    			var sc = $(window).scrollTop()
+    			if (sc > 100) {
+        		$("#header-sroll").addClass("small")
+    			} else {
+        			$("#header-sroll").removeClass("small")
+    			}
+		});
+		</script>
+
+</body>
+
+</html>
+
