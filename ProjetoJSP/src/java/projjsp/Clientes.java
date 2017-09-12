@@ -28,7 +28,7 @@ public class Clientes {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet) stmt.executeQuery();
 
-            retorno = resultado.first();
+            retorno = resultado.next();
         }
         catch (SQLException erro)
         {
@@ -51,7 +51,7 @@ public class Clientes {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet) stmt.executeQuery();
 
-            retorno = resultado.first();
+            retorno = resultado.next();
         }
         catch (SQLException erro)
         {
@@ -86,7 +86,7 @@ public class Clientes {
         {
             String sql;
 
-            sql = "INSERT INTO Clientes VALUES ('id','nome', 'endereco','telefone', 'email', 'senha')";
+            sql = "INSERT INTO Clientes VALUES ("+id+",'"+nome+"', '"+endereco+"','"+telefone+"', '"+email+"', '"+senha+"')";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             stmt.executeUpdate ();
@@ -98,7 +98,7 @@ public class Clientes {
         }
         catch (SQLException erro)
         {
-            throw new Exception(erro);
+                                    throw new Exception(erro);
         }   
     }
 
@@ -111,7 +111,7 @@ public class Clientes {
         {
             String sql;
 
-            sql = "DELETE FROM Clientes WHERE id='id'";
+            sql = "DELETE FROM Clientes WHERE id='"+id+"'";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             stmt.executeUpdate ();
@@ -169,7 +169,7 @@ public class Clientes {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet)stmt.executeQuery();
 
-            if (!resultado.first())
+            if (!resultado.next())
                 throw new Exception ("Não cadastrado");
 
             cliente = new Cliente (resultado.getInt("id"), resultado.getString("nome"),
@@ -197,7 +197,7 @@ public class Clientes {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet)stmt.executeQuery();
 
-            if (!resultado.first())
+            if (!resultado.next())
                 throw new Exception ("Não cadastrado");
 
             retorno = resultado.getString("email");
@@ -218,24 +218,20 @@ public class Clientes {
         {
             String sql;
 
-            sql = "SELECT * FROM Clientes WHERE login='"+login+"'";
+            sql = "SELECT * FROM Clientes WHERE email='"+login+"' and senha='"+senha+"'";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet)stmt.executeQuery();
 
             retorno = resultado.next();
             
-            if (resultado.getString(2) != senha)
-                return retorno;
-            else 
-                retorno = true;
-                return retorno;
         }
         catch (SQLException erro)
         {
             //throw new Exception ("Erro ao procurar Cliente");
             throw new Exception(erro);
         }
+        return retorno;
     }
 
 }
