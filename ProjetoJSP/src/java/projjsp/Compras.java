@@ -25,14 +25,14 @@ public class Compras {
 
             sql = "SELECT * FROM Compras WHERE numero='"+numero+"'";
 
-            PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
+            PreparedStatement stmt = DAOs.getBD().prepareStatement(sql);
             ResultSet resultado = (ResultSet) stmt.executeQuery();
 
-            retorno = resultado.first();
+            retorno = resultado.next();
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao procurar compra");
+            throw new Exception (erro);
         }
 
         return retorno;
@@ -49,11 +49,11 @@ public class Compras {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet) stmt.executeQuery();
             
-            retorno = resultado.first();
+            retorno = resultado.next();
     	}
     	catch(SQLException erro)
     	{
-    		throw new Exception ("Erro ao procurar compra");
+    		throw new Exception (erro);
     	}
     	
     	return retorno;
@@ -81,7 +81,7 @@ public class Compras {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao inserir compra");
+            throw new Exception (erro);
         }   
     }
 
@@ -106,7 +106,7 @@ public class Compras {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao excluir Compra");
+            throw new Exception (erro);
         }
     }
 
@@ -134,7 +134,7 @@ public class Compras {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao atualizar dados de compra");
+            throw new Exception (erro);
         }
     }
     
@@ -152,7 +152,7 @@ public class Compras {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet) stmt.executeQuery();
 
-            if (!resultado.first())
+            if (!resultado.next())
                 throw new Exception ("Nao cadastrado");
 
             compra = new Compra(resultado.getInt("numero"), resultado.getInt("Id"), 
@@ -160,7 +160,7 @@ public class Compras {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao procurar usuario");
+            throw new Exception (erro);
         }
 
         return compra;
@@ -179,7 +179,7 @@ public class Compras {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet) stmt.executeQuery();
             
-            if (resultado.first()){
+            if (resultado.next()){
                 Compra linha = new Compra();
                 linha.setNumero(resultado.getInt(1));
                 linha.setId(resultado.getInt(2));
@@ -198,7 +198,7 @@ public class Compras {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao recuperar compras");
+            throw new Exception (erro);
         }
 
         return lista;
