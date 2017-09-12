@@ -28,11 +28,11 @@ public class Administradores {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet)stmt.executeQuery();
 
-            retorno = resultado.first();
+            retorno = resultado.next();
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao procurar Administrador");
+            throw new Exception (erro);
         }
 
         return retorno;
@@ -50,14 +50,14 @@ public class Administradores {
             
             ResultSet resultado = (ResultSet)stmt.executeQuery();
             
-            retorno = resultado.first();
+            if(resultado.next())
+                return true;
+            return false;
     	}
     	catch(SQLException erro)
     	{
-    		throw new Exception ("Erro ao procurar Administrador");
-    	}
-    	
-    	return retorno;
+    		return false;
+    	}        	
     }
     
     public boolean cadastrado (String login) throws Exception
@@ -73,17 +73,17 @@ public class Administradores {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet)stmt.executeQuery();
 
-            retorno = resultado.first();
+            retorno = resultado.next();
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao procurar Administrador");
+            throw new Exception (erro);
         }
 
         return retorno;
     }
     
-    public boolean senhaCorreta (String login, String senha) throws Exception
+    public boolean senhaCorreta (String login, String senha) throws Exception 
     {
         boolean retorno = false;
 
@@ -91,23 +91,18 @@ public class Administradores {
         {
             String sql;
 
-            sql = "SELECT * FROM Administradores WHERE login='"+login+"'";
+            sql = "SELECT * FROM Administradores WHERE login='"+login+"' AND senha='"+senha+"'";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet)stmt.executeQuery();
 
             retorno = resultado.next();
-            
-            if (resultado.getString(2) != senha)
-                return retorno;
-            else 
-                retorno = true;
-                return retorno;
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao procurar Administrador");
+            throw new Exception (erro);
         }
+        return retorno;
     }
 
     public boolean incluir (Administrador Administrador) throws Exception
@@ -119,11 +114,11 @@ public class Administradores {
         {
             String sql;
 
-            sql = "INSERT INTO Adminstradores (login,senha) VALUES ('"+Administrador.getLogin()+"','"+Administrador.getSenha()+"')";
+            sql = "INSERT INTO Administradores (login,senha) VALUES ('"+Administrador.getLogin()+"','"+Administrador.getSenha()+"')";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
 
-            stmt.executeUpdate ();
+            stmt.executeUpdate();
             
             if (cadastrado(Administrador))
                 return true;
@@ -132,7 +127,7 @@ public class Administradores {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao inserir Administrador.");
+            throw new Exception (erro);
         }   
     }
 
@@ -145,7 +140,7 @@ public class Administradores {
         {
             String sql;
             
-            sql = "DELETE FROM Adminstradores WHERE ='"+login+"'";
+            sql = "DELETE FROM Administradores WHERE login ='"+login+"'";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
 
@@ -158,7 +153,7 @@ public class Administradores {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao excluir Administrador");
+            throw new Exception (erro);
         }
     }
 
@@ -174,7 +169,7 @@ public class Administradores {
         {
             String sql;
 
-            sql = "UPDATE Adminstradores SET login='"+administrador.getLogin()+"', senha='"+administrador.getSenha()+"' WHERE login='"+login+"'";
+            sql = "UPDATE Administradores SET login='"+administrador.getLogin()+"', senha='"+administrador.getSenha()+"' WHERE login='"+login+"'";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             stmt.executeUpdate ();
@@ -186,7 +181,7 @@ public class Administradores {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao atualizar dados de administrador");
+            throw new Exception (erro);
         }
     }
     
@@ -199,7 +194,7 @@ public class Administradores {
         {            
             String sql;
 
-            sql = "UPDATE Adminstradores SET senha='"+novaSenha+"' WHERE login='"+login+"'";
+            sql = "UPDATE Administradores SET senha='"+novaSenha+"' WHERE login='"+login+"'";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             stmt.executeUpdate ();
@@ -211,7 +206,7 @@ public class Administradores {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao atualizar dados de usuario");
+            throw new Exception (erro);
         }
     }
     
@@ -237,7 +232,7 @@ public class Administradores {
         catch (SQLException erro)
         {
             erro.printStackTrace(System.err);
-            throw new Exception ("Erro ao procurar Administrador");
+            throw new Exception (erro);
         }
 
         return administrador;
@@ -257,7 +252,7 @@ public class Administradores {
 
             ResultSet resultado = (ResultSet) stmt.executeQuery();
             
-            if (resultado.first()){
+            if (resultado.next()){
                 Administrador linha = new Administrador();
                 linha.setLogin(resultado.getString(1));
                 linha.setSenha(resultado.getString(2));
@@ -272,7 +267,7 @@ public class Administradores {
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao recuperar Administradores");
+            throw new Exception (erro);
         }
 
         return lista;
