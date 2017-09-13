@@ -1,0 +1,70 @@
+/*.header{
+	position:fixed;
+	height:50px;
+	width:100%;
+	background:#ccccb3;
+} */
+
+.footer{
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	height:50px;
+	width:100%;
+	background:#ccccb3;
+}
+
+.body{
+	background:#e6ffe6;
+}
+
+.headerContent{
+	text-align: left;
+}
+
+.content{
+	
+}
+
+/* abaixo CSS para fazer o header fixo */
+
+.header {
+    height:800px;
+   
+}
+
+
+#header-sroll {
+    position:fixed;
+    height: 100px;
+    background:#ccc;
+    left:0;
+    top:0;
+    float:left;
+    width:100%;
+    -ms-transition:     all 0.3s ease-out;
+    -moz-transition:    all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition:      all 0.3s ease-out;
+    transition:         all 0.3s ease-out;
+}
+#header-sroll h1 {
+    font-size: 30px;
+    font-family: Arial;
+    text-align: center;
+    line-height: 50px;
+     -ms-transition:    all 0.3s ease-out;
+    -moz-transition:    all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition:      all 0.3s ease-out;
+    transition:         all 0.3s ease-out;
+}
+#header-sroll.small {
+    height: 70px;
+    line-height: 35px;
+}
+#header-sroll.small h1{
+    height: 70px;
+    line-height: 35px;
+    font-size: 25px;
+}
