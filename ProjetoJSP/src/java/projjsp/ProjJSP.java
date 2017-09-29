@@ -5,6 +5,8 @@
  */
 package projjsp;
 
+import java.util.List;
+
 /**
  *
  * @author u14189
@@ -14,9 +16,8 @@ public class ProjJSP {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        DAOs d = new DAOs();
-        // TODO code application logic here
+    public static void main(String[] args) throws Exception {
+        
     }
-    
 }
+

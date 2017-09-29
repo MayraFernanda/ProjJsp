@@ -130,6 +130,29 @@ public class Administradores {
             throw new Exception (erro);
         }   
     }
+    
+     public boolean incluir (String login, String senha) throws Exception
+    {
+        try
+        {
+            String sql;
+
+            sql = "INSERT INTO Administradores VALUES ('"+login+"','"+senha+"')";
+
+            PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
+
+            stmt.executeUpdate();
+            
+            if (cadastrado(login))
+                return true;
+            
+            return false;
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception (erro);
+        }   
+    }
 
     public boolean excluir (String login) throws Exception
     {

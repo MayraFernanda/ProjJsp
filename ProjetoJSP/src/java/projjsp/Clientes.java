@@ -15,7 +15,7 @@ import java.util.List;
  * @author u14189
  */
 public class Clientes {
-    public boolean cadastrado (int id) throws Exception
+    public boolean cadastrado(int id) throws Exception
     {
         boolean retorno = false;
 
@@ -36,9 +36,9 @@ public class Clientes {
         }
 
         return retorno;
-    }
+    } 
     
-    public boolean cadastrado (Cliente cliente) throws Exception
+    /*public boolean cadastrado(int id) throws Exception
     {
         boolean retorno = false;
 
@@ -46,7 +46,30 @@ public class Clientes {
         {
             String sql;
 
-            sql = "SELECT * FROM Clientes WHERE id='"+cliente.getId()+"'";
+            sql = "SELECT * FROM Clientes WHERE id='"+id+"'";
+
+            PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
+            ResultSet resultado = (ResultSet) stmt.executeQuery();
+
+            retorno = resultado.next();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception(erro);
+        }
+
+        return retorno;
+    } */
+    
+    public boolean cadastrado (String email) throws Exception
+    {
+        boolean retorno = false;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT * FROM Clientes WHERE email='"+email+"'";
 
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             ResultSet resultado = (ResultSet) stmt.executeQuery();
@@ -91,7 +114,7 @@ public class Clientes {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             stmt.executeUpdate ();
             
-            if (cadastrado(id))
+            if (cadastrado(email))
                 return true;
             
             return false;
@@ -126,6 +149,24 @@ public class Clientes {
             throw new Exception(erro);
         }
     }
+    
+    public boolean excluir (String email) throws Exception
+    {
+        try
+        {
+            String sql;
+
+            sql = "DELETE FROM Clientes WHERE email='"+email+"'";
+
+            PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
+            stmt.executeUpdate ();         
+            return true;
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception(erro);
+        }
+    }
 
     public boolean alterar (int id, Cliente cliente) throws Exception
     {
@@ -144,7 +185,7 @@ public class Clientes {
             PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
             stmt.executeUpdate ();
             
-            if (cadastrado(cliente))
+            if (cadastrado(cliente.getEmail()))
                 return true;
             
             return false;
@@ -155,8 +196,27 @@ public class Clientes {
         }
     }
     
+    public boolean alterar(int id, String nome, String endereco, String telefone, String email, String senha) throws Exception
+    {
+        try
+        {
+            String sql;
+
+            sql = "UPDATE Clientes SET id='"+id+"', nome='"+nome+"', endereco='"+endereco+"',telefone='"+telefone+"',email='"+email+"',senha='"+senha+"'  WHERE id='"+id+"'";
+
+            PreparedStatement stmt = DAOs.getBD().prepareStatement (sql);
+            stmt.executeUpdate ();
+            
+            return true;
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception(erro);
+        }   
+    }
     
-    public Cliente getCliente (int id) throws Exception
+    
+    /*public Cliente getCliente (int id) throws Exception
     {
         Cliente cliente = null;
 
@@ -182,7 +242,7 @@ public class Clientes {
         }
 
         return cliente;
-    }
+    }*/
     
     
     public String getCliente (String email) throws Exception
